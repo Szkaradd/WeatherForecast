@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Wysokość widoku (viewport height) - to sprawia, że element ma wysokość całego ekranu */
+  background-image: url("assets/clouds-image.jpg");
+  background-size: cover; /* Skaluje obraz, aby wypełnić element, zachowując proporcje obrazu */
+  background-repeat: no-repeat; /* Zapobiega powtarzaniu się obrazu */
+  background-position: center; /* Centruje obraz tła */
+}

@@ -13,6 +13,8 @@ export class WeatherComponent {
   weatherResponse: WeatherResponse | null = null;
   noSuchCity: string | null = null;
   loading = false;
+  recentCities: String[] = [];
+  favoriteCities: String[] = [];
 
   constructor(private weatherService: WeatherService) {}
 
@@ -20,6 +22,7 @@ export class WeatherComponent {
     if (!this.cityName) {
       return;
     }
+    this.cityName = this.cityName.trim().toLowerCase();
 
     this.loading = true;
 
@@ -40,6 +43,7 @@ export class WeatherComponent {
         next: (response) => {
           this.weatherResponse = response;
           this.noSuchCity = null;
+          this.addToRecentCities();
         },
         error: (error) => {
           this.weatherResponse = null;
@@ -52,5 +56,16 @@ export class WeatherComponent {
           }
         },
       });
+  }
+
+  addToRecentCities(): void {
+    if (this.cityName) {
+      const capitalizedName =
+        this.cityName.charAt(0).toUpperCase() + this.cityName.slice(1);
+      this.recentCities.push(this.cityName);
+    }
+    if (this.recentCities.length > 5) {
+      this.recentCities.shift();
+    }
   }
 }

@@ -5,6 +5,8 @@ export interface WeatherResponse {
   clouds: Clouds;
   weather: Weather[];
   openAIDescription?: string;
+  dt: number;
+  sys: Sys;
 }
 
 export interface Main {
@@ -30,4 +32,12 @@ export interface Weather {
   main: string;
   description: string;
   icon: string;
+}
+
+export interface Sys {
+  type: number;
+  id: number;
+  country: string;
+  sunrise: number;
+  sunset: number;
 }

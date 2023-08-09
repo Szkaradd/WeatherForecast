@@ -19,4 +19,28 @@ export class WeatherWidgetComponent {
     const icon = this.weatherResponse.weather[0].icon;
     return 'http://openweathermap.org/img/w/' + icon + '.png';
   }
+
+  getWeatherTime() {
+    if (!this.weatherResponse) {
+      return null;
+    }
+    return new Date(this.weatherResponse.dt * 1000).toLocaleTimeString();
+  }
+
+  getSunsetTime() {
+    if (!this.weatherResponse || !this.weatherResponse.sys) {
+      return null;
+    }
+    return new Date(
+      this.weatherResponse.sys.sunset * 1000
+    ).toLocaleTimeString();
+  }
+  getSunriseTime() {
+    if (!this.weatherResponse || !this.weatherResponse.sys) {
+      return null;
+    }
+    return new Date(
+      this.weatherResponse.sys.sunrise * 1000
+    ).toLocaleTimeString();
+  }
 }

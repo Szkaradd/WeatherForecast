@@ -1,0 +1,46 @@
+.sun-time-card {
+  background-color: #ffdf57;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #4b515d;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.sun-time-card:hover {
+  transform: translateY(-5px);
+}
+
+.sun-time-icon {
+  font-size: 2rem;
+  color: #ffa726;
+}
+
+.openai-description-card {
+  background-color: #f1f3f6;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  font-style: italic;
+  transition: transform 0.2s;
+}
+
+.openai-description-card:hover {
+  transform: translateY(-3px);
+}
+
+.weather-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  border-radius: 35px;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.weather-card-content {
+  color: #4b515d;
+}

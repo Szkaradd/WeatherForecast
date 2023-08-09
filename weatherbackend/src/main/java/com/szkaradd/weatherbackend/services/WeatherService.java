@@ -15,7 +15,18 @@ public class WeatherService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public WeatherResponse getWeatherForCity(String city) {
+        System.out.println("Got request for city: " + city);
         String url = BASE_URL + city + "&appid=" + apiKey + "&units=metric";
-        return restTemplate.getForObject(url, WeatherResponse.class);
+        WeatherResponse response;
+        try {
+            response = restTemplate.getForObject(url, WeatherResponse.class);
+            System.out.println("Got response for city: " + city);
+            return response;
+        } catch (Exception e) {
+            if (e.getMessage().contains("404")) {
+                System.out.println("City not found: " + city);
+            }
+            return null;
+        }
     }
 }

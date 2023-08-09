@@ -10,6 +10,10 @@ public class WeatherResponse {
     private Clouds clouds;
     private Weather[] weather;
     private String openAIDescription;
+    private long dt;
+    private Sys sys;
+    private int cod;
+    private String message;
 
     @Data
     public static class Main {
@@ -38,6 +42,15 @@ public class WeatherResponse {
         private String main;
         private String description;
         private String icon;
+    }
+
+    @Data
+    public static class Sys {
+        private int type;
+        private int id;
+        private String country;
+        private long sunrise;
+        private long sunset;
     }
 
 }

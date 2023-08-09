@@ -1,16 +1,12 @@
-<section
-  *ngIf="weatherResponse"
-  class="vh-100"
-  style="background-color: #4b515d"
->
+<section *ngIf="weatherResponse" class="vh-20">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card" style="color: #4b515d; border-radius: 35px">
-          <div class="card-body p-4">
+        <div class="card weather-card">
+          <div class="card-body p-4 weather-card-content">
             <div class="d-flex">
               <h6 class="flex-grow-1">{{ weatherResponse.name }}</h6>
-              <h6>15:07</h6>
+              <h6>{{ getWeatherTime() }}</h6>
             </div>
 
             <div class="d-flex flex-column text-center mt-5 mb-4">
@@ -53,8 +49,28 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8 col-lg-6 col-xl-4" style="color: #d8dce3">
-        {{ weatherResponse.openAIDescription }}
+      <!-- OpenAI description card -->
+      <div class="col-md-8 col-lg-6 col-xl-4 mb-4">
+        <div class="openai-description-card">
+          {{ weatherResponse.openAIDescription?.toString() }}
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 col-xl-2 mb-4">
+        <!-- Sunrise card -->
+        <div class="sun-time-card text-center p-4">
+          <i class="fas fa-sun sun-time-icon"></i>
+          <h5 class="mb-0">Sunrise</h5>
+          <small>{{ getSunriseTime() }}</small>
+        </div>
+        <!-- Sunset card -->
+        <div
+          class="sun-time-card text-center p-4"
+          style="background-color: #1c046a; color: #fff"
+        >
+          <i class="fas fa-sun sun-time-icon"></i>
+          <h5 class="mb-0">Sunset</h5>
+          <small>{{ getSunsetTime() }}</small>
+        </div>
       </div>
     </div>
   </div>

@@ -21,6 +21,9 @@ public class WeatherController {
     @GetMapping("/weather")
     public ResponseEntity<WeatherResponse> getWeather(@RequestParam String city) {
         WeatherResponse response = weatherService.getWeatherForCity(city);
+        if (response == null) {
+            return ResponseEntity.notFound().build();
+        }
         String prompt = "Imagine you are weather girl in tv. Describe weather from this data: " +
                 response + " fit in 220 characters, please.";
         String gptDesc = openAIService.generateWeatherText(prompt);
