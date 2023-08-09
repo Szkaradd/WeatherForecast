@@ -23,10 +23,8 @@ public class WeatherService {
             System.out.println("Got response for city: " + city);
             return response;
         } catch (Exception e) {
-            if (e.getMessage().contains("404")) {
-                System.out.println("City not found: " + city);
-            }
-            return null;
+            System.out.println("Got exception for city: " + city);
+            throw e;
         }
     }
 }

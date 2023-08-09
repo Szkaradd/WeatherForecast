@@ -8,9 +8,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { WeatherComponent } from './weather/weather.component';
 import { FormsModule } from '@angular/forms';
 import { WeatherWidgetComponent } from './weather-widget/weather-widget.component';
+import { CityItemComponent } from './city-item/city-item.component';
 
 @NgModule({
-  declarations: [AppComponent, WeatherComponent, WeatherWidgetComponent],
+  declarations: [AppComponent, WeatherComponent, WeatherWidgetComponent, CityItemComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],

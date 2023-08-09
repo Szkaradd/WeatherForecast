@@ -1,11 +1,16 @@
-<div class="container mt-1">
+<div class="container mt-5">
   <div class="row justify-content-center">
     <!-- Recently viewed cities -->
-    <div class="col-md-2">
+    <div class="col-md-2 recent-cities-container">
       <h5>Recent cities</h5>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let city of recentCities">
-          {{ city }}
+          <app-city-item
+            [cityName]="city"
+            [isFavorite]="favoriteCities.includes(city)"
+            (clicked)="getWeatherFromRecent($event)"
+            (favorited)="addToFavorites($event)"
+          ></app-city-item>
         </li>
       </ul>
     </div>
@@ -23,7 +28,7 @@
           <button
             class="btn btn-outline-primary myButton"
             type="button"
-            (click)="getWeather()"
+            (click)="getWeather(cityName)"
           >
             Get Weather
           </button>
@@ -46,11 +51,16 @@
     </div>
 
     <!-- favorite cities -->
-    <div class="col-md-2">
+    <div class="col-md-2 recent-cities-container">
       <h5>Favorite cities</h5>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let city of favoriteCities">
-          {{ city }}
+          <app-city-item
+            [cityName]="city"
+            [isFavorite]="favoriteCities.includes(city)"
+            (clicked)="getWeatherFromRecent($event)"
+            (favorited)="addToFavorites($event)"
+          ></app-city-item>
         </li>
       </ul>
     </div>

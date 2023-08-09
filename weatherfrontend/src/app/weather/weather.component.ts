@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../services/weather.service';
 import { WeatherResponse } from '../models/weather-response-model';
 import { finalize, map } from 'rxjs';
@@ -8,23 +8,24 @@ import { finalize, map } from 'rxjs';
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.css'],
 })
-export class WeatherComponent {
+export class WeatherComponent implements OnInit {
   cityName: string | null = null;
   weatherResponse: WeatherResponse | null = null;
   noSuchCity: string | null = null;
   loading = false;
-  recentCities: String[] = [];
-  favoriteCities: String[] = [];
+  recentCities: string[] = [];
+  favoriteCities: string[] = [];
 
   constructor(private weatherService: WeatherService) {}
 
-  getWeather(): void {
-    if (!this.cityName) {
+  getWeather(cityName: string | null): void {
+    console.log('getWeather');
+    if (!cityName) {
       return;
     }
-    this.cityName = this.cityName.trim().toLowerCase();
-
     this.loading = true;
+
+    this.cityName = cityName.trim().toLowerCase();
 
     this.weatherService
       .getWeatherForCity(this.cityName)
@@ -44,6 +45,7 @@ export class WeatherComponent {
           this.weatherResponse = response;
           this.noSuchCity = null;
           this.addToRecentCities();
+          this.saveCurrentCityToLocalStorage();
         },
         error: (error) => {
           this.weatherResponse = null;
@@ -59,13 +61,70 @@ export class WeatherComponent {
   }
 
   addToRecentCities(): void {
-    if (this.cityName) {
+    if (this.weatherResponse && this.weatherResponse.name) {
       const capitalizedName =
-        this.cityName.charAt(0).toUpperCase() + this.cityName.slice(1);
-      this.recentCities.push(this.cityName);
+        this.weatherResponse.name.charAt(0).toUpperCase() +
+        this.weatherResponse.name.slice(1);
+      if (this.recentCities.indexOf(capitalizedName) === -1)
+        this.recentCities.push(capitalizedName);
     }
     if (this.recentCities.length > 5) {
       this.recentCities.shift();
     }
+    this.saveRecentCitiesToLocalStorage();
+  }
+
+  ngOnInit() {
+    this.loadRecentCitiesFromLocalStorage();
+    this.loadFavoriteCitiesFromLocalStorage();
+    this.loadCurrentCityFromLocalStorage();
+    if (this.cityName) {
+      this.getWeather(this.cityName);
+    }
+  }
+
+  saveRecentCitiesToLocalStorage(): void {
+    localStorage.setItem('recentCities', JSON.stringify(this.recentCities));
+  }
+
+  loadRecentCitiesFromLocalStorage(): void {
+    const storedCities = JSON.parse(
+      localStorage.getItem('recentCities') || '[]'
+    );
+    this.recentCities = storedCities;
+  }
+
+  saveFavoriteCitiesToLocalStorage(): void {
+    localStorage.setItem('favoriteCities', JSON.stringify(this.favoriteCities));
+  }
+
+  saveCurrentCityToLocalStorage(): void {
+    localStorage.setItem('currentCity', JSON.stringify(this.cityName));
+  }
+
+  loadCurrentCityFromLocalStorage(): void {
+    const storedCity = JSON.parse(localStorage.getItem('currentCity') || '""');
+    this.cityName = storedCity;
+  }
+
+  loadFavoriteCitiesFromLocalStorage(): void {
+    const storedCities = JSON.parse(
+      localStorage.getItem('favoriteCities') || '[]'
+    );
+    this.favoriteCities = storedCities;
+  }
+
+  addToFavorites(city: string): void {
+    if (this.favoriteCities.indexOf(city) === -1) {
+      this.favoriteCities.push(city);
+    } else {
+      this.favoriteCities.splice(this.favoriteCities.indexOf(city), 1);
+    }
+    this.saveFavoriteCitiesToLocalStorage();
+  }
+
+  getWeatherFromRecent(city: string): void {
+    console.log('getWeatherFromRecent');
+    this.getWeather(city);
   }
 }
