@@ -66,7 +66,7 @@ export class WeatherComponent implements OnInit {
         this.weatherResponse.name.charAt(0).toUpperCase() +
         this.weatherResponse.name.slice(1);
       if (this.recentCities.indexOf(capitalizedName) === -1)
-        this.recentCities.push(capitalizedName);
+        this.recentCities.unshift(capitalizedName);
     }
     if (this.recentCities.length > 5) {
       this.recentCities.shift();

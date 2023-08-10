@@ -17,9 +17,8 @@ public class WeatherService {
     public WeatherResponse getWeatherForCity(String city) {
         System.out.println("Got request for city: " + city);
         String url = BASE_URL + city + "&appid=" + apiKey + "&units=metric";
-        WeatherResponse response;
         try {
-            response = restTemplate.getForObject(url, WeatherResponse.class);
+            WeatherResponse response = restTemplate.getForObject(url, WeatherResponse.class);
             System.out.println("Got response for city: " + city);
             return response;
         } catch (Exception e) {
