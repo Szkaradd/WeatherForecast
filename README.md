@@ -11,7 +11,7 @@ The Weather App is a simple yet functional service that allows users to check th
 - Add and remove cities from the favorites list.
 - Stores recent and favorite cities in the browser's local storage.
 
-## User stories created for this project
+## User stories
 
 - User can search for real-time weather information by city name. 
 
