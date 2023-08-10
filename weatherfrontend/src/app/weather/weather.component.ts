@@ -65,11 +65,12 @@ export class WeatherComponent implements OnInit {
       const capitalizedName =
         this.weatherResponse.name.charAt(0).toUpperCase() +
         this.weatherResponse.name.slice(1);
-      if (this.recentCities.indexOf(capitalizedName) === -1)
-        this.recentCities.unshift(capitalizedName);
+      if (this.recentCities.indexOf(capitalizedName) !== -1)
+        this.recentCities.splice(this.recentCities.indexOf(capitalizedName), 1);
+      this.recentCities.unshift(capitalizedName);
     }
     if (this.recentCities.length > 5) {
-      this.recentCities.shift();
+      this.recentCities.pop();
     }
     this.saveRecentCitiesToLocalStorage();
   }
